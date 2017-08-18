@@ -2,8 +2,15 @@
   "name": "battleStatsAPI",
   "version": "1.0.0",
   "description": "API endpoint for BattleStatsify",
-  "main": "index.js",
+  "main": "",
   "repository": {},
   "author": "W Travis Stanley",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.7",
+    "node-fetch": "^1.7.2",
+    "request": "^2.81.0"
+  }
 }
