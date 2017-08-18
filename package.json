@@ -1,0 +1,9 @@
+{
+  "name": "battleStatsAPI",
+  "version": "1.0.0",
+  "description": "API endpoint for BattleStatsify",
+  "main": "index.js",
+  "repository": {},
+  "author": "W Travis Stanley",
+  "license": "MIT"
+}
