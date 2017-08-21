@@ -13,7 +13,10 @@ class Router {
 		this.app.use(bodyParser.json());
 
 		this.registerRoutes();
-		this.app.use(routeNotFound);
+    this.app.use(function (err, req, res, next) {
+      console.error(err.stack)
+      res.status(500).send('Something broke!')
+    })
 	}
 
 	registerRoutes() {
