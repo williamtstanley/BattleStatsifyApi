@@ -1,4 +1,5 @@
 const requestPromise = require('request-promise');
+
 const urls = {
   summoner: {
     name: '/lol/summoner/v3/summoners/by-name/{summonerName}',
@@ -12,19 +13,18 @@ class RiotAPI {
     this.apiKey = apiKey;
     this.rp = requestPromise;
     this.urls = urls;
-    
   }
 
   getUrl(path, options) {
+    //TODO add region support rather then only searching na1
     Object.keys(options).forEach((key) => {
-      path = path.replace("{" + key + "}", options[key]);
-      
+      path = path.replace(`{${key}}`, options[key]);
     });    
-    return path;
+    return `https://na1.api.riotgames.com${path}`;
   }
 
   httpReq(callDest, callMethod, options) {
-    const url = `https://na1.api.riotgames.com${this.getUrl(this.urls[callDest][callMethod], options)}`
+    const url = this.getUrl(this.urls[callDest][callMethod], options);
     const httpOpts = {
       uri: url,
       method: 'GET',
@@ -32,9 +32,7 @@ class RiotAPI {
         'X-Riot-Token': this.apiKey,
       }
     }
-
     return this.rp(httpOpts)
-      
   }
 
   getSummonerByName(name) {
@@ -42,13 +40,12 @@ class RiotAPI {
   }
 
   getSummonerById(id) {
-
+    return this.httpReq('summoner', 'byId', { summonderId: id })
   }
   
   getSummonerByAccountId(accountId) {
-
+    return this.httpReq('summoner', 'byAccountId', { accountId: accountId })
   }
-
 }
 
 module.exports = RiotAPI;
