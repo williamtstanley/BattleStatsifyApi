@@ -7,7 +7,7 @@ module.exports = {
 		name: server,
 		script: `./${server}/${server}.js`,
 		log_date_format: 'YYYY-MM-DD HH:mm',
-		watch: (ENV === 'development') ? `./${server}/` : false,
+		watch: (ENV === 'development') ? `./` : false,
 		ignore_watch: ['node_modules', '.git'],
 		// node_args: (ENV === 'development') ? '--inspect' : '',
 		env: {
