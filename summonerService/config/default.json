@@ -1,11 +1,7 @@
 {
-  "development": {
-  
-  },
-  "stage": {
-
-  },
-  "production": {
-
-  }
+  "databaseDSN": {
+		"development": "mongodb://127.0.0.1/battlestats_summoner",
+		"stage": "",
+		"production": ""
+	}
 }

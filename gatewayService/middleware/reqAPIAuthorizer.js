@@ -1,7 +1,7 @@
 const path = require('path');
 const config = require('../config/default');
 const env = process.env.NODE_ENV || 'development';
-const apiKey = config[env].apiKey;
+const apiKey = config.apiKey[env];
 
 //TODO authorized keys and applications data pulled from applicationRegistryService
 
@@ -21,6 +21,6 @@ module.exports = (req, res, next) => {
 			res.status(401).sendFile(path.resolve(__dirname, '../static/401unauthorized.html'));
 	  }
   } else {
-    //TODO handle not development here
+    //TODO handle not development here actually just handle all requests the same but in dev default to authorized
   }
 };

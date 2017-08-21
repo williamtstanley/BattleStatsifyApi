@@ -9,7 +9,7 @@ class Router {
 		if (!this.app) throw new Error('Missing app property');
 
 		this.routes = routes;
-    
+
     // this.app.use(reqAPIAuthorizer);
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
