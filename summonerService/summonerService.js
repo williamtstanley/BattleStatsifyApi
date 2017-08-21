@@ -1,7 +1,8 @@
 const app = require('express')();
 const Router = require('./routing/router');
-const MongooseDB = require('./mongoDB');
-const goosedb = new MongooseDB();
+const MongooseDB = require('../databaseHelpers/mongoDB');
+const config = require('./config/default')
+const goosedb = new MongooseDB(config);
 const routes = new Router(app);
 
 goosedb.connect()

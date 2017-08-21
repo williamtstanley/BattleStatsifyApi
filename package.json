@@ -12,7 +12,8 @@
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.7",
     "node-fetch": "^1.7.2",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "when": "^3.7.8"
   },
   "scripts": {
     "start:dev": "NODE_ENV=development NODE_PATH=. pm2 start server.config.js",

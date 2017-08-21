@@ -3,5 +3,8 @@
 		"development": "mongodb://127.0.0.1/battlestats_summoner",
 		"stage": "",
 		"production": ""
-	}
+	},
+	"riotApi": {
+	  "apiKey": "RGAPI-bcc25fb3-1eb2-4618-b33d-e6519dd5ab3e" 
+  }
 }
