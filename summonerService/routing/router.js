@@ -1,6 +1,5 @@
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-const routeNotFound = require('../middleware/routeNotFound');
 
 class Router {
 	constructor(app) {
