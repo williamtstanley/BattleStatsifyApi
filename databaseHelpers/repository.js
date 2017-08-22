@@ -11,7 +11,7 @@ class Repository {
 
   create(item) {
     return when(this.model.create(item));
-  };
+  }
 
   find(conditions, fields, sort) {
 	  const query = this.model.find(conditions, fields);
@@ -19,7 +19,7 @@ class Repository {
 	  if (typeof sort != 'undefined') query.sort(sort);
 
 	  return when(query.exec());
-  };
+  }
 
   findOne(conditions, fields, sort) {
 	  const query = this.model.findOne(conditions, fields);
@@ -27,7 +27,7 @@ class Repository {
 	  if (typeof sort != 'undefined') query.sort(sort);
 
 	  return when(query.exec());
-  };
+  }
 
   remove(conditions) {
 	  return when(this.model.find(conditions).exec()).then(entities => {
@@ -44,15 +44,15 @@ class Repository {
 
 		  return when.settle(promises);
 	  });
-  };
+  }
 
   update(conditions, update, options) {
 	  return when(this.model.update(conditions, update, options).exec());
-  };
+  }
 
   aggregate(pipeline) {
 	  return when(Model.aggregate(pipeline).exec());
-  };
+  }
 
   updateDocument(update) {
 	  if (update) {
@@ -71,7 +71,7 @@ class Repository {
 			  resolve(this.model);
 		  });
 	  });
-  };
+  }
 }
 
 module.exports = Repository;
