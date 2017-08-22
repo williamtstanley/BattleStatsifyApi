@@ -5,7 +5,7 @@ module.exports = {
 	'/': {
 		'get': (req, res) => res.sendFile(path.resolve(__dirname, '../static/index.html')),
 	},
-  '/api/summoner/:summonerName': {
+  '/summoner/:summonerName': {
     'get': (req, res) =>  request({  
         url: `http://localhost:3002/${req.params.summonerName}`,
         method: req.query.method

@@ -8,7 +8,7 @@ module.exports = {
 				next();
 			})
 			.catch((err) => {
-				res.status(403).send(err);
+				// res.status(403).send(err);
 				next(err);
 			});
 	},

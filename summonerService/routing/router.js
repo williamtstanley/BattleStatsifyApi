@@ -12,9 +12,13 @@ class Router {
 		this.app.use(bodyParser.json());
 
 		this.registerRoutes();
-    this.app.use(function (err, req, res, next) {
-      console.error(err.stack)
-      res.status(500).send('Something broke!')
+    this.app.use((err, req, res, next) => {
+      console.log('there was an error', err)
+      res.status(err.status || 500);
+      res.json({
+          message: err.message,
+          error: err
+      });
     })
 	}
 

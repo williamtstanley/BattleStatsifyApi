@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 const reqAPIAuthorizer = require('../middleware/reqAPIAuthorizer');
 const routeNotFound = require('../middleware/routeNotFound');
+const allowCors = require('../middleware/allowCors');
 
 class Router {
 	constructor(app) {
@@ -9,13 +10,13 @@ class Router {
 		if (!this.app) throw new Error('Missing app property');
 
 		this.routes = routes;
-
-    // this.app.use(reqAPIAuthorizer);
+    
+    this.app.use(allowCors);
+    this.app.use(reqAPIAuthorizer);
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
 
 		this.registerRoutes();
-		this.app.use(routeNotFound);
     
     this.app.use(function (err, req, res, next) {
       console.error(err.stack)

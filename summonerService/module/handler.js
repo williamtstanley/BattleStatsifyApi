@@ -8,20 +8,20 @@ const summonerRepo = new Repository(Model);
 
 
 const getSummonerByName = (params) => {
-  const { summonerName } = params
+  const { summonerName } = params;
   return summonerRepo.findOne({ name: summonerName }).then((summonerData) => {
     if (summonerData) {
-      console.log('found in our database')
+      console.log('found in our database');
       return summonerData;
     } else {
       return riotClient.getSummonerByName(summonerName)
         .then((response) => {
-          console.log('found via riotAPI and created entry')
+          console.log('found via riotAPI and created entry');
           return summonerRepo.create(JSON.parse(response)).then((newRecord) => newRecord)
         })
         .catch((err) => {
-          console.log('No summoner found via api')
-          return err
+          console.log('No summoner found via api');
+          throw new Error(err);
         })
     }
   });

@@ -6,7 +6,9 @@ const apiKey = config.apiKey[env];
 //TODO authorized keys and applications data pulled from applicationRegistryService
 
 module.exports = (req, res, next) => {
-  if (env === 'development') {
+  if(req.method === 'OPTIONS') {
+    next();
+  } else if (env === 'development') {
     const authHeader = req.header('authorization');
 	  if (authHeader) {
 		  const decodedHeader = new Buffer(authHeader.split(' ')[1], 'base64')
