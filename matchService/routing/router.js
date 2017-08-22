@@ -1,8 +1,5 @@
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-const reqAPIAuthorizer = require('../middleware/reqAPIAuthorizer');
-const routeNotFound = require('../middleware/routeNotFound');
-const allowCors = require('../middleware/allowCors');
 
 class Router {
 	constructor(app) {
@@ -11,16 +8,16 @@ class Router {
 
 		this.routes = routes;
     
-    this.app.use(allowCors);
-    // this.app.use(reqAPIAuthorizer);
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
 
 		this.registerRoutes();
-    
-    this.app.use(function (err, req, res, next) {
-      console.error(err.stack)
-      res.status(500).send('Something broke!')
+    this.app.use((err, req, res, next) => {
+      res.status(err.status || 500);
+      res.json({
+          message: err.message,
+          error: err
+      });
     })
 	}
 

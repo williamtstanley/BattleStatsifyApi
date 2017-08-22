@@ -3,5 +3,13 @@
     "development": "d2b1d6a526421e7fda5b9d602aee1387870d5e09f4679781697dbb47e66dc415",
     "stage": "",
     "production": ""
+  },
+  "serviceHosts": {
+    "summoner": "http://localhost:3002",
+    "matches": "http://localhost:3003"
+  },
+  "serviceRoutes": {
+    "summoner": "/summoner/:summonerName",
+    "matches": "/matches/:accountId"
   }
 }

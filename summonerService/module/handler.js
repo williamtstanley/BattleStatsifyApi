@@ -16,8 +16,18 @@ const getSummonerByName = (params) => {
     } else {
       return riotClient.getSummonerByName(summonerName)
         .then((response) => {
-          console.log('found via riotAPI and created entry');
-          return summonerRepo.create(JSON.parse(response)).then((newRecord) => newRecord)
+          console.log('found summoner via api')
+          let parsedSummoner = JSON.parse(response);
+          return riotClient.getLeaguePositionBySummoner(parsedSummoner.id)
+            .then((leagueJson) => {
+              console.log('found league data via api => creating entry', JSON.parse(leagueJson))
+              return summonerRepo.create(Object.assign({}, parsedSummoner, {
+                leagueStat: JSON.parse(leagueJson), 
+              })).then((newEntry) => newEntry)
+            }).catch((err) => {
+              console.log('no league data found createing summoner without')
+              return summonerRepo.create(parsedSummoner).then((newEntry) => newEntry)
+            })
         })
         .catch((err) => {
           console.log('No summoner found via api');
