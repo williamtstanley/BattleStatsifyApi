@@ -35,7 +35,12 @@ const buildSummonerData = (params) => {
             recent: JSON.parse(matchData)
           })
         })
-    }).catch((err) => err)
+        .catch((err) => {
+          return parsedData
+        })
+    }).catch((err) => {
+      return new Error(err)
+    })
 }
 
 module.exports = {

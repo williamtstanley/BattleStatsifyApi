@@ -17,6 +17,13 @@
         "recent": "/matches/:accountId",
         "timelines": "/timelines/:matchId"
       }
+    },
+    "static": {
+      "host": "http://localhost:3004",
+      "routes": {
+        "champions": "/champion",
+        "champion": "/champion/:championId"
+      }
     }
   }
 }

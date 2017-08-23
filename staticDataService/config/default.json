@@ -1,0 +1,10 @@
+{
+  "databaseDSN": {
+		"development": "mongodb://127.0.0.1/battlestats_static",
+		"stage": "",
+		"production": ""
+	},
+	"riotApi": {
+	  "apiKey": "RGAPI-4d4f2e8b-ea36-416d-926e-352d2303151b" 
+  }
+}

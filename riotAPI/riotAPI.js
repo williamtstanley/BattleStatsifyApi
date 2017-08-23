@@ -1,44 +1,26 @@
 const requestPromise = require('request-promise');
 const when = require('when');
-
-const urls = {
-  summoner: {
-    name: '/lol/summoner/v3/summoners/by-name/{summonerName}',
-    byId: '/lol/summoner/v3/summoners/{summonerId}',
-    byAccountId: '/lol/summoner/v3/summoners/by-account/{accountId}',
-  },
-  match: {
-    byId: '/lol/match/v3/matches/{matchId}',
-    byAccountId: '/lol/match/v3/matchlists/by-account/{accountId}',
-    recent: '/lol/match/v3/matchlists/by-account/{accountId}/recent',
-    timelines: '/lol/match/v3/timelines/by-match/{matchId}',
-    byTournamentCode: '/lol/match/v3/matches/by-tournament-code/{tournamentCode}/ids',
-    byMatchIdByTournamentCode: '/lol/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode}'
-  },
-  league: {
-    bySummonerId: '/lol/league/v3/leagues/by-summoner/{summonerId}',
-    positionsBySummonerId:'/lol/league/v3/positions/by-summoner/{summonerId}',
-    masterLeaguesByQueue: '/lol/league/v3/masterleagues/by-queue/{queue}',
-    challengerLeaguesByQueue: '/lol/league/v3/challengerleagues/by-queue/{queue}'
-  },
-}
+const config = require('./config');
 
 class RiotAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.rp = requestPromise;
-    this.urls = urls;
-    this.rateLimit = this.setRateLimit();
+    this.urls = config.urls;
+    this.rateLimit = config.rateLimit;
     this.lastCall = Date.now();
     this.calls = 0;
   }
 
   getUrl(path, options) {
-    delete options.query
+    if (options) {
+      delete options.query
+      Object.keys(options).forEach((key) => {
+        path = path.replace(`{${key}}`, options[key]);
+      });   
+    }
+
     //TODO add region support rather then only searching na1
-    Object.keys(options).forEach((key) => {
-      path = path.replace(`{${key}}`, options[key]);
-    });    
     return `https://na1.api.riotgames.com${path}`;
   }
 
@@ -64,18 +46,6 @@ class RiotAPI {
     //Currently hard coded to dev numbers
     //after more thought I have come to the conclusion that I need a request queue
     //however I don't think I will build one right now as time is a factor in this endevour
-    if (!this.rateLimit) {
-      return {
-        minsLimits: {
-          time: 120000,
-          limit: 100, 
-        },
-        secsLimits: {
-          time: 1000,
-          limit: 20, 
-        },
-      };
-    }
   }
   
   checkRateLimit() {
@@ -144,6 +114,20 @@ class RiotAPI {
   getLeaguePositionBySummoner(summonerId) {
     return this.checkRateLimit()
       .then(() => this.httpReq('league', 'positionsBySummonerId', { summonerId }))
+  }
+
+  getChampionById(championId) {
+    return this.httpReq('staticData', 'championById', {
+      championId, 
+      query: { locale: 'en_US' } 
+    })
+  }
+
+  getChampionList() {
+    return this.httpReq('staticdata', 'championList', { query: {
+      locale: 'en_US',
+      dataById: false
+    }})
   }
 
 }

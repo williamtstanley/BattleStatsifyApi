@@ -11,7 +11,7 @@ const getSummonerByName = (params) => {
   const { summonerName } = params;
   return summonerRepo.findOne({ name: summonerName }).then((summonerData) => {
     if (summonerData) {
-      console.log('found in our database');
+      console.log('found summoner in our database');
       return summonerData;
     } else {
       return riotClient.getSummonerByName(summonerName)

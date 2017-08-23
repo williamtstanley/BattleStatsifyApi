@@ -5,6 +5,8 @@ const config = require('../config/default');
 
 //TODO dynamic generation of routes so that adding route objects to the
 //config is the only place you have to update the code
+//TODO revisit the proxy requests as I can probably just fwd eveything from a /endpoint
+//url to the service and minimize the route requirements on this side
 
 module.exports = {
 	'/': {
@@ -28,6 +30,18 @@ module.exports = {
   [config.services.matches.routes.timelines]: {
     'get': (req, res) =>  request({  
       url: `${config.services.matches.host}/timelines/${req.params.matchId}`,
+      method: req.query.method
+    }).pipe(res)
+  },
+  [config.services.static.routes.champions]: {
+    'get': (req, res) => request({
+      url: `${config.services.static.host}/champion`,
+      method: req.query.method
+    }).pipe(res)
+  },
+  [config.services.static.routes.champion]: {
+    'get': (req, res) => request({
+      url: `${config.services.static.host}/champion/${req.params.championId}`,
       method: req.query.method
     }).pipe(res)
   }

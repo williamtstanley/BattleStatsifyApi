@@ -1,6 +1,6 @@
 const ENV = process.env.NODE_ENV;
 const path = process.env.NODE_PATH;
-const list = ['gatewayService', 'summonerService', 'matchService'];
+const list = ['gatewayService', 'summonerService', 'matchService', 'staticDataService'];
 
 module.exports = {
 	apps: list.map((server) => ({
