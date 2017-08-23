@@ -10,4 +10,4 @@ const schema = mongoose.Schema({
   createdAt: { type: Date, default: Date.now, expires: config.matchExpiry }
 });
 
-module.exports = mongoose.model('MatchByAccount', schema);
+module.exports = mongoose.model('RecentMatchList', schema);

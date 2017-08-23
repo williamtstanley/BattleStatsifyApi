@@ -30,7 +30,6 @@ const buildSummonerData = (params) => {
     .then((data) => {
       return getMatchData(JSON.parse(data).accountId)
         .then((matchData) => {
-          console.log(matchData)
           return matchData
         })
     }).catch((err) => err)
