@@ -28,9 +28,12 @@ const getMatchData = (accountId) => {
 const buildSummonerData = (params) => {
   return getSummonerData(params.summonerName)
     .then((data) => {
-      return getMatchData(JSON.parse(data).accountId)
+      const parsedData = JSON.parse(data)
+      return getMatchData(parsedData.accountId)
         .then((matchData) => {
-          return matchData
+          return Object.assign({}, parsedData, {
+            recent: JSON.parse(matchData)
+          })
         })
     }).catch((err) => err)
 }

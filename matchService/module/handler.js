@@ -43,7 +43,6 @@ const getRecentMatches = (params) => {
 
 const getMatchTimeline = (params) => {
   const { matchId } = params;
-  console.log('matchId', matchId)
   return TimelineRepo.findOne({ matchId }).then((timelineData) => {
     if (timelineData) {
       console.log('found timeline in database')
