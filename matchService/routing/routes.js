@@ -5,7 +5,10 @@ module.exports = {
 	'/': {
 		'get': (req, res) => res.sendFile(path.resolve(__dirname, '../static/index.html')),
 	},
-  '/:accountId': {
+  '/recent/:accountId': {
     'get': controller.getRecentMatches,
+  },
+  '/timelines/:matchId': {
+    'get': controller.getMatchTimeline,
   }
 };

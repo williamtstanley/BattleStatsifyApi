@@ -1,12 +1,18 @@
 const when = require('when');
-const RecentMatches = require('./recentMatchesModel');
-const Match = require('./matchModel');
 const config = require('../config/default')
+
 const Repository = require('../../databaseHelpers/repository');
 const RiotAPI = require('../../riotAPI/riotAPI');
+const RecentMatches = require('./recentMatchesModel');
+const Match = require('./matchModel');
+const Timeline = require('./timelineModel');
+
 const riotClient = new RiotAPI(config.riotApi.apiKey)
 const RecentMatchRepo = new Repository(RecentMatches);
 const MatchRepo = new Repository(Match);
+const TimelineRepo = new Repository(Timeline);
+
+// handler functions 
 
 const getRecentMatches = (params) => {
   const { accountId } = params;
@@ -35,6 +41,32 @@ const getRecentMatches = (params) => {
   })
 };
 
+const getMatchTimeline = (params) => {
+  const { matchId } = params;
+  console.log('matchId', matchId)
+  return TimelineRepo.findOne({ matchId }).then((timelineData) => {
+    if (timelineData) {
+      console.log('found timeline in database')
+      return timelineData;
+    } else {
+      return riotClient.getMatchTimeline(matchId)
+        .then((response) => {
+          console.log('found timeline via api')
+          return TimelineRepo.create(
+            Object.assign(
+              {},
+              JSON.parse(response),
+              { matchId }
+            )
+          )
+        })
+        .catch((err) => { error: 'no timeline found' })
+    }
+  })
+}
+
+//helper functions
+
 const getAllMatchDetails = (matchesArr, accountId) => {
   return when.all(when.map(
     matchesArr, 
@@ -45,6 +77,7 @@ const getAllMatchDetails = (matchesArr, accountId) => {
 const getMatchDetails = (gameId, accountId) => {
   return MatchRepo.findOne({ "match.gameId": gameId }).then((matchData) => {
     if (matchData) {
+      console.log('found match in database')
       return matchData;
     } else {
       return riotClient.getMatchById(gameId, { forAccountId: accountId })
@@ -56,14 +89,14 @@ const getMatchDetails = (gameId, accountId) => {
           }).then((newRecord) => newRecord)
         })
         .catch((err) => {
-          console.log('no match data found for gameId: ', gameId)
           return { error: 'no match found' }
         });
     }
   })
 };
 
+
 module.exports = {
   getRecentMatches,
-  getMatchDetails,
+  getMatchTimeline
 }

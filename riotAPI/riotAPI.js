@@ -1,11 +1,6 @@
 const requestPromise = require('request-promise');
 const when = require('when');
 
-const constants = {
-  MINUTE: 1000 * 60,
-  SECOND: 1000,
-}
-
 const urls = {
   summoner: {
     name: '/lol/summoner/v3/summoners/by-name/{summonerName}',
@@ -139,6 +134,11 @@ class RiotAPI {
   getRecentMatches(accountId) {
     return this.checkRateLimit()
       .then(() => this.httpReq('match', 'recent', { accountId }))
+  }
+
+  getMatchTimeline(matchId) {
+    return this.checkRateLimit()
+      .then(() => this.httpReq('match', 'timelines', { matchId }))
   }
 
   getLeaguePositionBySummoner(summonerId) {

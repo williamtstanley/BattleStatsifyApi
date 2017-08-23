@@ -3,7 +3,7 @@ const request = require('request');
 const config = require('../config/default');
 const rp = require('request-promise');
 
-const { serviceHosts, serviceRoutes } = config;
+const { services } = config;
 
 const httpReq = (options) => {
   const httpOpts = {
@@ -15,13 +15,13 @@ const httpReq = (options) => {
 
 const getSummonerData = (name) => {
   return httpReq({
-    url: `${serviceHosts.summoner}/${name}`
+    url: `${services.summoner.host}/${name}`
   })
 }
 
 const getMatchData = (accountId) => {
   return httpReq({
-    url: `${serviceHosts.matches}/${accountId}`
+    url: `${services.matches.host}/recent/${accountId}`
   })
 }
 

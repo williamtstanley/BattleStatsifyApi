@@ -4,12 +4,19 @@
     "stage": "",
     "production": ""
   },
-  "serviceHosts": {
-    "summoner": "http://localhost:3002",
-    "matches": "http://localhost:3003"
-  },
-  "serviceRoutes": {
-    "summoner": "/summoner/:summonerName",
-    "matches": "/matches/:accountId"
+  "services": {
+    "summoner": {
+      "host": "http://localhost:3002",
+      "routes": {
+        "summoner": "/summoner/:summonerName"
+      }
+    },
+    "matches": {
+      "host": "http://localhost:3003",
+      "routes": {
+        "recent": "/matches/:accountId",
+        "timelines": "/timelines/:matchId"
+      }
+    }
   }
 }
