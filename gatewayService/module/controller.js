@@ -8,7 +8,7 @@ module.exports = {
 				next();
 			})
 			.catch((err) => {
-				res.status(500).send(err);
+				res.status(404).send({error: 'No summoner data found'});
 				next(err);
 			});
 	},

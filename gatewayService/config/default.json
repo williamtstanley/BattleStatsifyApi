@@ -5,25 +5,14 @@
     "production": ""
   },
   "services": {
-    "summoner": {
-      "host": "http://localhost:3002",
-      "routes": {
-        "summoner": "/summoner/:summonerName"
-      }
+    "/summoner": {
+      "host": "http://localhost:3002"
     },
-    "matches": {
-      "host": "http://localhost:3003",
-      "routes": {
-        "recent": "/matches/:accountId",
-        "timelines": "/timelines/:matchId"
-      }
+    "/matches": {
+      "host": "http://localhost:3003"
     },
-    "static": {
-      "host": "http://localhost:3004",
-      "routes": {
-        "champions": "/champion",
-        "champion": "/champion/:championId"
-      }
+    "/static-data": {
+      "host": "http://localhost:3004"
     }
   }
 }

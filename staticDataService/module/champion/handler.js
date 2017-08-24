@@ -3,7 +3,7 @@ const ChampionModel = require('./model');
 const config = require('../../config/default')
 const Repository = require('../../../databaseHelpers/repository');
 const RiotAPI = require('../../../riotAPI/riotAPI');
-const riotClient = new RiotAPI(config.riotApi.apiKey)
+const riotClient = new RiotAPI()
 const ChampionRepo = new Repository(ChampionModel);
 
 
@@ -11,7 +11,7 @@ const getSummonerByName = (params) => {
   const { summonerName } = params;
   return summonerRepo.findOne({ name: summonerName }).then((summonerData) => {
     if (summonerData) {
-      console.log('found in our database');
+      console.log('found summoner in our database');
       return summonerData;
     } else {
       return riotClient.getSummonerByName(summonerName)
@@ -20,7 +20,7 @@ const getSummonerByName = (params) => {
           let parsedSummoner = JSON.parse(response);
           return riotClient.getLeaguePositionBySummoner(parsedSummoner.id)
             .then((leagueJson) => {
-              console.log('found league data via api => creating entry', JSON.parse(leagueJson))
+              console.log('found league data via api => creating entry')
               return summonerRepo.create(Object.assign({}, parsedSummoner, {
                 leagueStat: JSON.parse(leagueJson), 
               })).then((newEntry) => newEntry)
@@ -38,9 +38,9 @@ const getSummonerByName = (params) => {
 }
 
 const getChampionById = (id) => {
-  return ChampionRepo.find({ id }).then((championData) => {
+  return ChampionRepo.findOne({ id }).then((championData) => {
     if (championData) {
-      console.log('found champions List in db')
+      console.log('found champion in db')
       return championData;
     } else {
 
@@ -57,7 +57,7 @@ const getChampionList = () => {
     } else {
       return riotClient.getChampionList()
         .then((response) => {
-          console.log('found champion list via api', response)
+          console.log('found champion list via api')
           const parsedData = JSON.parse(response).data;
           return when.all(
             when.map(

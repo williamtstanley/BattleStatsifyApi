@@ -10,7 +10,7 @@ class Router {
     
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
-
+ 
 		this.registerRoutes();
     this.app.use((err, req, res, next) => {
       res.status(err.status || 500);

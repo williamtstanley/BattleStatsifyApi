@@ -15,13 +15,13 @@ const httpReq = (options) => {
 
 const getSummonerData = (name) => {
   return httpReq({
-    url: `${services.summoner.host}/${name}`
+    url: `${services['/summoner'].host}/${name}`
   })
 }
 
 const getMatchData = (accountId) => {
   return httpReq({
-    url: `${services.matches.host}/recent/${accountId}`
+    url: `${services['/matches'].host}/recent/${accountId}`
   })
 }
 
@@ -31,15 +31,14 @@ const buildSummonerData = (params) => {
       const parsedData = JSON.parse(data)
       return getMatchData(parsedData.accountId)
         .then((matchData) => {
-          return Object.assign({}, parsedData, {
-            recent: JSON.parse(matchData)
-          })
+          return {
+            summoner: parsedData,
+            matches: JSON.parse(matchData).map((mData) => mData.match)
+          }
         })
         .catch((err) => {
-          return parsedData
+          return { summoner: parsedData }
         })
-    }).catch((err) => {
-      return new Error(err)
     })
 }
 

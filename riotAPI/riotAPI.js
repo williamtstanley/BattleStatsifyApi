@@ -4,7 +4,7 @@ const config = require('./config');
 
 class RiotAPI {
   constructor(apiKey) {
-    this.apiKey = apiKey;
+    this.apiKey = apiKey || config.apiKey[process.env.NODE_ENV || 'development'];
     this.rp = requestPromise;
     this.urls = config.urls;
     this.rateLimit = config.rateLimit;

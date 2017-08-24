@@ -7,7 +7,7 @@ const RecentMatches = require('./recentMatchesModel');
 const Match = require('./matchModel');
 const Timeline = require('./timelineModel');
 
-const riotClient = new RiotAPI(config.riotApi.apiKey)
+const riotClient = new RiotAPI()
 const RecentMatchRepo = new Repository(RecentMatches);
 const MatchRepo = new Repository(Match);
 const TimelineRepo = new Repository(Timeline);

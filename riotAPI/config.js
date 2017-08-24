@@ -49,7 +49,12 @@ const rateLimit = {
   }
 }
 
+const apiKey = {
+  development: "RGAPI-4d4f2e8b-ea36-416d-926e-352d2303151b"
+}
+
 module.exports = {
   urls,
   rateLimit,
+  apiKey
 }

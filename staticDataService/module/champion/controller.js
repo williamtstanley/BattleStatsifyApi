@@ -2,7 +2,7 @@ const handler = require('./handler');
 
 module.exports = {
 	getChampionById: (req, res, next) => {
-		handler.getChampionById(req.params.id)
+    handler.getChampionById(req.params.championId)
 			.then((response) => {
 				res.status(200).send(response);
 				next();

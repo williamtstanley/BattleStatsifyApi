@@ -3,7 +3,7 @@ const Model = require('./model');
 const config = require('../config/default')
 const Repository = require('../../databaseHelpers/repository');
 const RiotAPI = require('../../riotAPI/riotAPI');
-const riotClient = new RiotAPI(config.riotApi.apiKey)
+const riotClient = new RiotAPI()
 const summonerRepo = new Repository(Model);
 
 
@@ -20,7 +20,7 @@ const getSummonerByName = (params) => {
           let parsedSummoner = JSON.parse(response);
           return riotClient.getLeaguePositionBySummoner(parsedSummoner.id)
             .then((leagueJson) => {
-              console.log('found league data via api => creating entry', JSON.parse(leagueJson))
+              console.log('found league data via api => creating entry')
               return summonerRepo.create(Object.assign({}, parsedSummoner, {
                 leagueStat: JSON.parse(leagueJson), 
               })).then((newEntry) => newEntry)
