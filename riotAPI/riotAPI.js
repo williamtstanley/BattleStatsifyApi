@@ -120,14 +120,20 @@ class RiotAPI {
     return this.httpReq('staticData', 'championById', {
       championId, 
       query: { locale: 'en_US' } 
-    })
+    });
   }
 
   getChampionList() {
     return this.httpReq('staticdata', 'championList', { query: {
       locale: 'en_US',
       dataById: false
-    }})
+    }});
+  }
+
+  getItemList() {
+    return this.httpReq('staticdata', 'itemList', { query: {
+      locale: 'en_US'
+    }});
   }
 
 }

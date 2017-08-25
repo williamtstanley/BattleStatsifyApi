@@ -1,14 +1,18 @@
 const path = require('path');
-const controller = require('../module/champion/controller');
+const championController = require('../module/champion/controller');
+const itemController = require('../module/item/controller');
 
 module.exports = {
 	'/': {
 		'get': (req, res) => res.sendFile(path.resolve(__dirname, '../static/index.html')),
 	},
   '/champion/:championId': {
-    'get': controller.getChampionById,
+    'get': championController.getChampionById,
   },
   '/champion': {
-    'get': controller.getChampionList,
+    'get': championController.getChampionList,
+  },
+  '/items': {
+    'get': itemController.getItemList,
   }
 };
