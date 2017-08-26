@@ -50,7 +50,7 @@ const rateLimit = {
 }
 
 const apiKey = {
-  development: "RGAPI-5da7faea-aae3-42d6-9d31-bae13820e149"
+  development: "RGAPI-ddc9c454-5216-4532-a55b-f06cf69bc081"
 }
 
 module.exports = {
