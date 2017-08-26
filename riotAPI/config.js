@@ -50,7 +50,7 @@ const rateLimit = {
 }
 
 const apiKey = {
-  development: node.env.API_KEY || "RGAPI-ddc9c454-5216-4532-a55b-f06cf69bc081"
+  development: process.env.API_KEY || "RGAPI-ddc9c454-5216-4532-a55b-f06cf69bc081"
 }
 
 module.exports = {
