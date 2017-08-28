@@ -6,10 +6,10 @@ module.exports = {
 	'/': {
 		'get': (req, res) => res.sendFile(path.resolve(__dirname, '../static/index.html')),
 	},
-  '/champion/:championId': {
+  '/champions/:championId': {
     'get': championController.getChampionById,
   },
-  '/champion': {
+  '/champions': {
     'get': championController.getChampionList,
   },
   '/items': {
