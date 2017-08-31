@@ -1,6 +1,5 @@
 const bodyParser = require('body-parser');
 const request = require('request');
-const routes = require('./routes');
 const services = require('../config/default').services;
 const reqAPIAuthorizer = require('../middleware/reqAPIAuthorizer');
 // const routeNotFound = require('../middleware/routeNotFound');
@@ -11,7 +10,6 @@ class Router {
 		this.app = app;
 		if (!this.app) throw new Error('Missing app property');
 
-		this.routes = routes;
     this.services = services;
     
     this.app.use(allowCors);
@@ -20,7 +18,6 @@ class Router {
 		this.app.use(bodyParser.json());
 
     this.registerServices();
-		this.registerRoutes();
         
     this.app.use(function (err, req, res, next) {
       console.error(err.stack)
@@ -36,18 +33,7 @@ class Router {
       }).pipe(res))
     });
   }
-
-	registerRoutes() {
-		Object.keys(this.routes).forEach((route) => {
-			this.buildRoute(route, this.routes[route]);
-		});
-	}
-
-	buildRoute(path, route) {
-		Object.keys(route).forEach((verb) => {
-			this.app[verb](path, route[verb]);
-		})
-	}
+	
 }
 
 module.exports = Router;
